@@ -16,9 +16,10 @@ export class NegotiationController{
   private messageView = new MessageView('#mensagemView');
 
   constructor(){
-    this.inputDate = document.querySelector('#data');
-    this.inputAmount = document.querySelector('#quantidade');
-    this.inputValue = document.querySelector('#valor');
+  //Existem 2 formas de fazer um casting explícito, conforme a baixo:
+    this.inputDate = <HTMLInputElement>document.querySelector('#data');
+    this.inputAmount = document.querySelector('#quantidade') as HTMLInputElement;
+    this.inputValue = document.querySelector('#valor') as HTMLInputElement;
     
   }
   

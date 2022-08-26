@@ -1,5 +1,4 @@
 import { View } from "./view.js";
-//criando um template para tabela dinâmica
 export class NegotiationsView extends View {
     template(model) {
         return `

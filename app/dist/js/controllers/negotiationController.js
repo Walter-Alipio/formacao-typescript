@@ -1,26 +1,29 @@
+import { DaysOfTheWeek } from "../enums/daysOfTheWeek.js";
 import { Negotiation } from "../models/negociation.js";
 import { Negotiations } from "../models/wrapperNegotiations.js";
 import { MessageView } from "../views/messageView.js";
 import { NegotiationsView } from "../views/negotiationsView.js";
 export class NegotiationController {
     constructor() {
-        //o tipo da variável já é inferido pelo ts quando atribuímos a ela um valor em sua declaração 
         this.negociations = new Negotiations();
-        this.negociationsView = new NegotiationsView('#negociacoesView');
+        this.negociationsView = new NegotiationsView('#negociacoesView', true);
         this.messageView = new MessageView('#mensagemView');
         this.inputDate = document.querySelector('#data');
         this.inputAmount = document.querySelector('#quantidade');
         this.inputValue = document.querySelector('#valor');
     }
     addNegotiation() {
-        const negotiation = this.createNegotiation();
+        const negotiation = Negotiation.createFrom(this.inputDate.value, this.inputAmount.value, this.inputValue.value);
+        if (!this.itIsWorkingDay(negotiation.date)) {
+            return this.messageView.update('Apenas negociações em dias úteis são aceitas.');
+        }
         this.negociations.addNegotiation(negotiation);
         this.updateView();
         this.cleanForm();
     }
-    createNegotiation() {
-        //Com o tipo definido, o TS já sugere formas de converter automaticamente o valor que vem do input
-        return new Negotiation(this.inputDate.valueAsDate, this.inputAmount.valueAsNumber, this.inputValue.valueAsNumber);
+    itIsWorkingDay(date) {
+        return date.getDay() > DaysOfTheWeek.SUNDAY
+            && date.getDay() < DaysOfTheWeek.SATURDAY;
     }
     cleanForm() {
         this.inputDate.value = '';

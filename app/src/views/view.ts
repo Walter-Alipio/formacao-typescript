@@ -7,7 +7,14 @@ export abstract class View<T>{//classes abstratas não podem ser instanciadas di
 
   //criando parâmetro escape opcional
   constructor(selector: string, escape?: boolean){
-    this.element = document.querySelector(selector);
+    const element = document.querySelector(selector); 
+
+    if(element){
+      this.element = element as HTMLElement;
+    }else{
+      throw Error (`O elemento ${element} não existe no DOM.`);
+    }
+
     if(escape){
       this.escape = escape;
     }
