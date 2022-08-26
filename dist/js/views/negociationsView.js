@@ -1,9 +1,7 @@
+import { View } from "./view.js";
 //criando um template para tabela dinâmica
-export class NegociationsView {
-    constructor(selector) {
-        this.element = document.querySelector(selector);
-    }
-    template() {
+export class NegociationsView extends View {
+    template(model) {
         return `
     <table class= "table table-hover table-bordered">
       <thead>
@@ -14,11 +12,20 @@ export class NegociationsView {
         </tr>
       </thead>
       <tbody>
+      ${model.list().map(negociation => {
+            return `
+            <tr>
+              <td>${this.formatDate(negociation.date)}</td>
+              <td>${negociation.amount}</td>
+              <td>${negociation.value}</td>
+            </tr>
+          `;
+        }).join('')}
       </tbody>
     <table>
     `;
     }
-    update() {
-        this.element.innerHTML = this.template();
+    formatDate(date) {
+        return new Intl.DateTimeFormat().format(date);
     }
 }

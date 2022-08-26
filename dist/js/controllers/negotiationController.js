@@ -1,20 +1,21 @@
 import { Negotiation } from "../models/negociation.js";
 import { Negociations } from "../models/wrapperNegotiations.js";
+import { MessageView } from "../views/messageView.js";
 import { NegociationsView } from "../views/negociationsView.js";
 export class NegotiationController {
     constructor() {
         //o tipo da variável já é inferido pelo ts quando atribuímos a ela um valor em sua declaração 
         this.negociations = new Negociations();
         this.negociationsView = new NegociationsView('#negociacoesView');
+        this.messageView = new MessageView('#mensagemView');
         this.inputDate = document.querySelector('#data');
         this.inputAmount = document.querySelector('#quantidade');
         this.inputValue = document.querySelector('#valor');
-        this.negociationsView.update();
     }
     addNegotiation() {
         const negotiation = this.createNegotiation();
         this.negociations.addNegotiation(negotiation);
-        console.log(this.negociations);
+        this.updateView();
         this.cleanForm();
     }
     createNegotiation() {
@@ -26,5 +27,9 @@ export class NegotiationController {
         this.inputAmount.value = '';
         this.inputValue.value = '';
         this.inputDate.focus();
+    }
+    updateView() {
+        this.negociationsView.update(this.negociations);
+        this.messageView.update('Negociação adicionada com sucesso');
     }
 }
