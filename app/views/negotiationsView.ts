@@ -1,11 +1,11 @@
-import { Negociations } from "../models/wrapperNegotiations.js";
+import { Negotiations } from "../models/wrapperNegotiations.js";
 import { View } from "./view.js";
 
 //criando um template para tabela dinâmica
-export class NegociationsView extends View<Negociations>{
+export class NegotiationsView extends View<Negotiations>{
 
 
-  protected template(model: Negociations): string{
+  protected template(model: Negotiations): string{
     return `
     <table class= "table table-hover table-bordered">
       <thead>
@@ -17,12 +17,12 @@ export class NegociationsView extends View<Negociations>{
       </thead>
       <tbody>
       ${
-        model.list().map(negociation => {
+        model.list().map(negotiation => {
           return `
             <tr>
-              <td>${this.formatDate(negociation.date)}</td>
-              <td>${negociation.amount}</td>
-              <td>${negociation.value}</td>
+              <td>${this.formatDate(negotiation.date)}</td>
+              <td>${negotiation.amount}</td>
+              <td>${negotiation.value}</td>
             </tr>
           `
         }).join('')

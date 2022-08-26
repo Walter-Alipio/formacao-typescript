@@ -1,7 +1,7 @@
 import { Negotiation } from "../models/negociation.js";
-import { Negociations } from "../models/wrapperNegotiations.js";
+import { Negotiations } from "../models/wrapperNegotiations.js";
 import { MessageView } from "../views/messageView.js";
-import { NegociationsView } from "../views/negociationsView.js";
+import { NegotiationsView } from "../views/negotiationsView.js";
 
 export class NegotiationController{
   //TS possui inerentemente a tipagem para lhe dar com JS. Ex: HTMLInputElement
@@ -9,9 +9,9 @@ export class NegotiationController{
   private inputAmount: HTMLInputElement;
   private inputValue: HTMLInputElement;
   //o tipo da variável já é inferido pelo ts quando atribuímos a ela um valor em sua declaração 
-  private negociations = new Negociations();
+  private negociations = new Negotiations();
 
-  private negociationsView = new NegociationsView('#negociacoesView');
+  private negociationsView = new NegotiationsView('#negociacoesView');
   private messageView = new MessageView('#mensagemView');
 
   constructor(){

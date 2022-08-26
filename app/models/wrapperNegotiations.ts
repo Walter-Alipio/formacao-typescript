@@ -1,18 +1,18 @@
 import { Negotiation } from "./negociation.js";
 
 //wrapper pattern
-export class Negociations{
+export class Negotiations{
   // <T> "T" tipo. "< >" generics
   //Array<Negotiation>
-  private negociations: Negotiation[] = [];
+  private negotiations: Negotiation[] = [];
 
   addNegotiation(negociation: Negotiation){
-    this.negociations.push(negociation);
+    this.negotiations.push(negociation);
   }
 
   //ReadonlyArray<Negotiation>
   list(): readonly Negotiation[]{
-    return this.negociations;
+    return this.negotiations;
   }
 
 }

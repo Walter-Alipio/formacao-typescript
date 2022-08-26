@@ -1,12 +1,12 @@
 import { Negotiation } from "../models/negociation.js";
-import { Negociations } from "../models/wrapperNegotiations.js";
+import { Negotiations } from "../models/wrapperNegotiations.js";
 import { MessageView } from "../views/messageView.js";
-import { NegociationsView } from "../views/negociationsView.js";
+import { NegotiationsView } from "../views/negotiationsView.js";
 export class NegotiationController {
     constructor() {
         //o tipo da variável já é inferido pelo ts quando atribuímos a ela um valor em sua declaração 
-        this.negociations = new Negociations();
-        this.negociationsView = new NegociationsView('#negociacoesView');
+        this.negociations = new Negotiations();
+        this.negociationsView = new NegotiationsView('#negociacoesView');
         this.messageView = new MessageView('#mensagemView');
         this.inputDate = document.querySelector('#data');
         this.inputAmount = document.querySelector('#quantidade');

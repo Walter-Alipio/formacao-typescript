@@ -1,15 +1,15 @@
 //wrapper pattern
-export class Negociations {
+export class Negotiations {
     constructor() {
         // <T> "T" tipo. "< >" generics
         //Array<Negotiation>
-        this.negociations = [];
+        this.negotiations = [];
     }
     addNegotiation(negociation) {
-        this.negociations.push(negociation);
+        this.negotiations.push(negociation);
     }
     //ReadonlyArray<Negotiation>
     list() {
-        return this.negociations;
+        return this.negotiations;
     }
 }
