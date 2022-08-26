@@ -23,12 +23,17 @@ export class NegotiationController{
   }
   
   public addNegotiation(): void {
-    const negotiation = this.createNegotiation();
+  //Com o tipo definido, o TS já sugere formas de converter automaticamente o valor que vem do input
+    const negotiation = Negotiation.createFrom(
+      this.inputDate.value,
+      this.inputAmount.value,
+      this.inputValue.value
+    )
 
     if(!this.itIsWorkingDay(negotiation.date)){
      return this.messageView.update('Apenas negociações em dias úteis são aceitas.');
     }
-    
+
     this.negociations.addNegotiation(negotiation);
     this.updateView();
     this.cleanForm();
@@ -37,18 +42,6 @@ export class NegotiationController{
   private itIsWorkingDay(date: Date): boolean{
     return date.getDay() > DaysOfTheWeek.SUNDAY 
         && date.getDay() < DaysOfTheWeek.SATURDAY;  
-  }
-  
-  private createNegotiation(): Negotiation {
-    //Com o tipo definido, o TS já sugere formas de converter automaticamente o valor que vem do input
-    const regex = /-/g;
-    const date = new Date(this.inputDate.value.replace(regex,","));
-
-    return  new Negotiation(
-      date,
-      this.inputAmount.valueAsNumber,
-      this.inputValue.valueAsNumber
-      );
   }
 
   private cleanForm(): void {
