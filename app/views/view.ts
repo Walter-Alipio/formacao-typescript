@@ -3,15 +3,24 @@ export abstract class View<T>{//classes abstratas não podem ser instanciadas di
   
   //protected permite que os elementos filhos também acessem a propriedade
   protected element: HTMLElement;
-  constructor(selector: string){
+  private escape = false;
+
+  //criando parâmetro escape opcional
+  constructor(selector: string, escape?: boolean){
     this.element = document.querySelector(selector);
+    if(escape){
+      this.escape = escape;
+    }
   }
 
   //metodo abstrato precisa ser implementado pelas classes filhas
   protected abstract template(model: T ): string;
 
   public update(model: T): void{
-    const template = this.template(model);
+    let template = this.template(model);
+    if(this.escape){
+      template = template.replace(/<script>[\s\S]*?<script>/,'');
+    }
     this.element.innerHTML = template;
   }
 }

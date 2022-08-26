@@ -12,7 +12,7 @@ export class NegotiationController{
   //o tipo da variável já é inferido pelo ts quando atribuímos a ela um valor em sua declaração 
   private negociations = new Negotiations();
 
-  private negociationsView = new NegotiationsView('#negociacoesView');
+  private negociationsView = new NegotiationsView('#negociacoesView', true);
   private messageView = new MessageView('#mensagemView');
 
   constructor(){
