@@ -1,3 +1,4 @@
+import { Inspect } from "../decorators/inspect.js";
 import { LogRuntime } from "../decorators/logRuntime.js";
 
 //usando o poder dos generics <T>, a classe que estende View precisa declarar qual tipo deve ser usado.
@@ -5,10 +6,9 @@ export abstract class View<T>{//classes abstratas não podem ser instanciadas di
   
   //protected permite que os elementos filhos também acessem a propriedade
   protected element: HTMLElement;
-  private escape = false;
 
   //criando parâmetro escape opcional
-  constructor(selector: string, escape?: boolean){
+  constructor(selector: string){
     const element = document.querySelector(selector); 
 
     if(element){
@@ -16,21 +16,17 @@ export abstract class View<T>{//classes abstratas não podem ser instanciadas di
     }else{
       throw Error (`O elemento ${element} não existe no DOM.`);
     }
-
-    if(escape){
-      this.escape = escape;
-    }
   }
 
   //metodo abstrato precisa ser implementado pelas classes filhas
   protected abstract template(model: T ): string;
 
-  @LogRuntime()
+  @LogRuntime(true)
+  @Inspect()
   public update(model: T): void{
     let template = this.template(model);
-    if(this.escape){
-      template = template.replace(/<script>[\s\S]*?<script>/,'');
-    }
     this.element.innerHTML = template;
   }
 }
+
+//Quando a mais de um decorator, eles serão empilhados e o que estiver mais alto no topo da pilha será resolvido primeiro.
