@@ -1,10 +1,11 @@
+import { escape } from "../decorators/escape.js"; //decorator
 import { Negotiations } from "../models/wrapperNegotiations.js";
 import { View } from "./view.js";
 
 //criando um template para tabela dinâmica
 export class NegotiationsView extends View<Negotiations>{
 
-
+  @escape()
   protected template(model: Negotiations): string{
     return `
     <table class= "table table-hover table-bordered">
