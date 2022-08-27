@@ -1,3 +1,5 @@
+import { LogRuntime } from "../decorators/logRuntime.js";
+
 //usando o poder dos generics <T>, a classe que estende View precisa declarar qual tipo deve ser usado.
 export abstract class View<T>{//classes abstratas não podem ser instanciadas diretamente
   
@@ -23,6 +25,7 @@ export abstract class View<T>{//classes abstratas não podem ser instanciadas di
   //metodo abstrato precisa ser implementado pelas classes filhas
   protected abstract template(model: T ): string;
 
+  @LogRuntime()
   public update(model: T): void{
     let template = this.template(model);
     if(this.escape){

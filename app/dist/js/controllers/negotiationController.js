@@ -1,3 +1,10 @@
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+import { LogRuntime } from "../decorators/logRuntime.js";
 import { DaysOfTheWeek } from "../enums/daysOfTheWeek.js";
 import { Negotiation } from "../models/negociation.js";
 import { Negotiations } from "../models/wrapperNegotiations.js";
@@ -11,6 +18,7 @@ export class NegotiationController {
         this.inputDate = document.querySelector('#data');
         this.inputAmount = document.querySelector('#quantidade');
         this.inputValue = document.querySelector('#valor');
+        this.negociationsView.update(this.negociations);
     }
     addNegotiation() {
         const negotiation = Negotiation.createFrom(this.inputDate.value, this.inputAmount.value, this.inputValue.value);
@@ -36,3 +44,6 @@ export class NegotiationController {
         this.messageView.update('Negociação adicionada com sucesso');
     }
 }
+__decorate([
+    LogRuntime()
+], NegotiationController.prototype, "addNegotiation", null);

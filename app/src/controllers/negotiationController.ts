@@ -1,3 +1,4 @@
+import { LogRuntime } from "../decorators/logRuntime.js";
 import { DaysOfTheWeek } from "../enums/daysOfTheWeek.js";
 import { Negotiation } from "../models/negociation.js";
 import { Negotiations } from "../models/wrapperNegotiations.js";
@@ -20,9 +21,9 @@ export class NegotiationController{
     this.inputDate = <HTMLInputElement>document.querySelector('#data');
     this.inputAmount = document.querySelector('#quantidade') as HTMLInputElement;
     this.inputValue = document.querySelector('#valor') as HTMLInputElement;
-    
+    this.negociationsView.update(this.negociations);
   }
-  
+  @LogRuntime()
   public addNegotiation(): void {
   //Com o tipo definido, o TS já sugere formas de converter automaticamente o valor que vem do input
     const negotiation = Negotiation.createFrom(

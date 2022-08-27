@@ -5,7 +5,8 @@
 		"noEmitOnError": true,
 		"noImplicitAny": true,
 		"removeComments": true, //removendo os comentários dos arquivos compilados
-		"strictNullChecks": true
+		"strictNullChecks": true,
+		"experimentalDecorators": true
 	},
 	"include": ["app/src/**/*"]
 }
