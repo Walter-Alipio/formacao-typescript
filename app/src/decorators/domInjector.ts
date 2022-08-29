@@ -4,14 +4,13 @@ export function domInject(selector: string){
     target: any,
     propertyKey: string
   ){
-    let element: HTMLElement;
-    const getter = function(){
+    let element: HTMLElement; //criando um cache para o getter
+    const getter = function(){  // definindo novo getter para o prototype
       if(!element){
         element = <HTMLElement>document.querySelector(selector); 
       }
-     // return <HTMLElement>document.querySelector(selector);
      return element
     }
-    Object.defineProperty(target, propertyKey, { get: getter });  
+    Object.defineProperty(target, propertyKey, { get: getter });  //alterando propriedades do prototype
   }
 }
