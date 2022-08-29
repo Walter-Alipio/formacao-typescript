@@ -8,25 +8,36 @@ import { domInject } from "../decorators/domInjector.js";
 import { Inspect } from "../decorators/inspect.js";
 import { LogRuntime } from "../decorators/logRuntime.js";
 import { DaysOfTheWeek } from "../enums/daysOfTheWeek.js";
-import { Negotiation } from "../models/negociation.js";
+import { Negotiation } from "../models/negotiation.js";
 import { Negotiations } from "../models/wrapperNegotiations.js";
+import { serviceNegotiations } from "../services/serviceNegotiations.js";
 import { MessageView } from "../views/messageView.js";
 import { NegotiationsView } from "../views/negotiationsView.js";
 export class NegotiationController {
     constructor() {
-        this.negociations = new Negotiations();
-        this.negociationsView = new NegotiationsView('#negociacoesView');
+        this.negotiations = new Negotiations();
+        this.serviceNegotiations = new serviceNegotiations();
+        this.negotiationsView = new NegotiationsView('#negociacoesView');
         this.messageView = new MessageView('#mensagemView');
-        this.negociationsView.update(this.negociations);
+        this.negotiationsView.update(this.negotiations);
     }
     addNegotiation() {
         const negotiation = Negotiation.createFrom(this.inputDate.value, this.inputAmount.value, this.inputValue.value);
         if (!this.itIsWorkingDay(negotiation.date)) {
             return this.messageView.update('Apenas negociações em dias úteis são aceitas.');
         }
-        this.negociations.addNegotiation(negotiation);
+        this.negotiations.addNegotiation(negotiation);
         this.updateView();
         this.cleanForm();
+    }
+    importData() {
+        this.serviceNegotiations.getDaysNegociations()
+            .then(todaysNegotiation => {
+            for (let negociation of todaysNegotiation) {
+                this.negotiations.addNegotiation(negociation);
+            }
+            this.negotiationsView.update(this.negotiations);
+        });
     }
     itIsWorkingDay(date) {
         return date.getDay() > DaysOfTheWeek.SUNDAY
@@ -39,7 +50,7 @@ export class NegotiationController {
         this.inputDate.focus();
     }
     updateView() {
-        this.negociationsView.update(this.negociations);
+        this.negotiationsView.update(this.negotiations);
         this.messageView.update('Negociação adicionada com sucesso');
     }
 }

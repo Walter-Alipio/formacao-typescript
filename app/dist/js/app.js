@@ -8,3 +8,12 @@ form.addEventListener('submit', (event) => {
     event.preventDefault();
     controller.addNegotiation();
 });
+const importButton = document.querySelector('#botao-importa');
+if (importButton) {
+    importButton.addEventListener('click', () => {
+        controller.importData();
+    });
+}
+else {
+    throw new Error("Botão importa não foi encontrado");
+}
