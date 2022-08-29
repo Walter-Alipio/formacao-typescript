@@ -21,8 +21,8 @@ export abstract class View<T>{//classes abstratas não podem ser instanciadas di
   //metodo abstrato precisa ser implementado pelas classes filhas
   protected abstract template(model: T ): string;
 
-  @LogRuntime(true)
-  @Inspect()
+  // @LogRuntime(true)
+  // @Inspect()
   public update(model: T): void{
     let template = this.template(model);
     this.element.innerHTML = template;
