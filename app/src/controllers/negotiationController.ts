@@ -1,3 +1,5 @@
+import { domInject } from "../decorators/domInjector.js";
+import { Inspect } from "../decorators/inspect.js";
 import { LogRuntime } from "../decorators/logRuntime.js";
 import { DaysOfTheWeek } from "../enums/daysOfTheWeek.js";
 import { Negotiation } from "../models/negociation.js";
@@ -7,8 +9,11 @@ import { NegotiationsView } from "../views/negotiationsView.js";
 
 export class NegotiationController{
   //TS possui inerentemente a tipagem para lhe dar com JS. Ex: HTMLInputElement
+  @domInject('#data')
   private inputDate: HTMLInputElement;
+  @domInject('#quantidade')
   private inputAmount: HTMLInputElement;
+  @domInject('#valor')
   private inputValue: HTMLInputElement;
   //o tipo da variável já é inferido pelo ts quando atribuímos a ela um valor em sua declaração 
   private negociations = new Negotiations();
@@ -17,12 +22,10 @@ export class NegotiationController{
   private messageView = new MessageView('#mensagemView');
 
   constructor(){
-  //Existem 2 formas de fazer um casting explícito, conforme a baixo:
-    this.inputDate = <HTMLInputElement>document.querySelector('#data');
-    this.inputAmount = document.querySelector('#quantidade') as HTMLInputElement;
-    this.inputValue = document.querySelector('#valor') as HTMLInputElement;
     this.negociationsView.update(this.negociations);
   }
+
+  @Inspect()
   @LogRuntime()
   public addNegotiation(): void {
   //Com o tipo definido, o TS já sugere formas de converter automaticamente o valor que vem do input
@@ -58,3 +61,9 @@ export class NegotiationController{
     this.messageView.update('Negociação adicionada com sucesso');
   }
 }
+
+
+  // //Existem 2 formas de fazer um casting explícito, conforme a baixo:
+  //   this.inputDate = <HTMLInputElement>document.querySelector('#data');
+  //   this.inputAmount = document.querySelector('#quantidade') as HTMLInputElement;
+  //   this.inputValue = document.querySelector('#valor') as HTMLInputElement;
