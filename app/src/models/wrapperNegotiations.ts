@@ -1,7 +1,8 @@
+import { printable } from "../interfaces/printable.js";
 import { Negotiation } from "./negotiation.js";
 
 //wrapper pattern
-export class Negotiations{
+export class Negotiations implements printable{
   // <T> "T" tipo. "< >" generics
   //Array<Negotiation>
   private negotiations: Negotiation[] = [];

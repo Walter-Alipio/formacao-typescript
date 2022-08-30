@@ -1,4 +1,6 @@
-export class Negotiation {
+import { printable } from "../interfaces/printable.js";
+
+export class Negotiation implements printable{
 	/*
 		private _date: Date;
 		private _amount: number;
@@ -10,7 +12,7 @@ export class Negotiation {
 		private _date: Date, 
 		public readonly amount: number, 
 		public readonly value: number
-		) {}
+		) {	}
 
 		
 		//getter com programação defensiva 
