@@ -31,7 +31,15 @@ export class NegotiationController {
         this.cleanForm();
     }
     importData() {
-        this.serviceNegotiations.getDaysNegociations()
+        this.serviceNegotiations
+            .getDaysNegociations()
+            .then(todaysNegotiation => {
+            return todaysNegotiation.filter(todaysNegotiation => {
+                return !this.negotiations
+                    .list()
+                    .some(negotiation => negotiation.isEqual(todaysNegotiation));
+            });
+        })
             .then(todaysNegotiation => {
             for (let negociation of todaysNegotiation) {
                 this.negotiations.addNegotiation(negociation);
