@@ -1,5 +1,5 @@
-import { daysNegotiation } from "../interfaces/todaysNegotiation";
-import { Negotiation } from "../models/negotiation";
+import { daysNegotiation } from "../interfaces/todaysNegotiation.js";
+import { Negotiation } from "../models/negotiation.js";
 
 export class serviceNegotiations{
 
