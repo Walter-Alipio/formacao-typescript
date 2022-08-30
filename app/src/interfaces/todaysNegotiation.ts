@@ -1,4 +1,4 @@
-export interface daysNegotiation {
+export interface DaysNegotiation {
   montante: number;
   vezes: number;
 }

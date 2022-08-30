@@ -49,8 +49,16 @@ export class NegotiationController{
 
   public importData(): void{
 
-    this.serviceNegotiations.getDaysNegociations()
-     .then(todaysNegotiation => {
+    this.serviceNegotiations
+      .getDaysNegociations()
+      .then(todaysNegotiation => {
+        return todaysNegotiation.filter(todaysNegotiation => {
+          return !this.negotiations
+            .list()
+            .some(negotiation => negotiation.isEqual(todaysNegotiation));
+        })
+      })
+      .then(todaysNegotiation => {
         for(let negociation of todaysNegotiation){
           this.negotiations.addNegotiation(negociation);
         }

@@ -1,4 +1,4 @@
-import { daysNegotiation } from "../interfaces/todaysNegotiation.js";
+import { DaysNegotiation } from "../interfaces/todaysNegotiation.js";
 import { Negotiation } from "../models/negotiation.js";
 
 export class serviceNegotiations{
@@ -6,7 +6,7 @@ export class serviceNegotiations{
   public getDaysNegociations(): Promise<Negotiation[]>{
     return  fetch('http://localhost:8080/dados')
      .then(res => res.json())
-     .then((data: daysNegotiation[])=>{
+     .then((data: DaysNegotiation[])=>{
         return data.map(todayData => {
           return new Negotiation(
             new Date(),
