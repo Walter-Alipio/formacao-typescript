@@ -1,6 +1,7 @@
-import { printable } from "../interfaces/printable.js";
+import { Model } from "../interfaces/objectModel";
 
-export class Negotiation implements printable{
+
+export class Negotiation implements Model<Negotiation>{
 	/*
 		private _date: Date;
 		private _amount: number;
@@ -43,6 +44,12 @@ export class Negotiation implements printable{
       amount,
       value
       );
+		}
+
+		public isEqual(negotiation: Negotiation): boolean{
+			return this.date.getDate() === negotiation.date.getDate() 
+				&& this.date.getMonth() === negotiation.date.getMonth() 
+				&& this.date.getFullYear() === negotiation.date.getFullYear();
 		}
 
 }

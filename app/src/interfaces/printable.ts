@@ -1,3 +1,3 @@
-export  interface printable {
+export  interface Printable {
     toText(): string;
 }
