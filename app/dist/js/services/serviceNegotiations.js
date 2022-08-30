@@ -1,4 +1,4 @@
-import { Negotiation } from "../models/negotiation";
+import { Negotiation } from "../models/negotiation.js";
 export class serviceNegotiations {
     getDaysNegociations() {
         return fetch('http://localhost:8080/dados')

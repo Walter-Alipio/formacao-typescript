@@ -2,8 +2,9 @@ import { domInject } from "../decorators/domInjector.js";
 import { Inspect } from "../decorators/inspect.js";
 import { LogRuntime } from "../decorators/logRuntime.js";
 import { DaysOfTheWeek } from "../enums/daysOfTheWeek.js";
-import { Negotiation } from "../models/negociation.js";
+import { Negotiation } from "../models/negotiation.js";
 import { Negotiations } from "../models/wrapperNegotiations.js";
+import { serviceNegotiations } from "../services/serviceNegotiations.js";
 import { MessageView } from "../views/messageView.js";
 import { NegotiationsView } from "../views/negotiationsView.js";
 
@@ -16,13 +17,15 @@ export class NegotiationController{
   @domInject('#valor')
   private inputValue: HTMLInputElement;
   //o tipo da variável já é inferido pelo ts quando atribuímos a ela um valor em sua declaração 
-  private negociations = new Negotiations();
+  private negotiations = new Negotiations();
 
-  private negociationsView = new NegotiationsView('#negociacoesView');
+  private serviceNegotiations = new serviceNegotiations();
+
+  private negotiationsView = new NegotiationsView('#negociacoesView');
   private messageView = new MessageView('#mensagemView');
 
   constructor(){
-    this.negociationsView.update(this.negociations);
+    this.negotiationsView.update(this.negotiations);
   }
 
   @Inspect()
@@ -39,9 +42,20 @@ export class NegotiationController{
      return this.messageView.update('Apenas negociações em dias úteis são aceitas.');
     }
 
-    this.negociations.addNegotiation(negotiation);
+    this.negotiations.addNegotiation(negotiation);
     this.updateView();
     this.cleanForm();
+  }
+
+  public importData(): void{
+
+    this.serviceNegotiations.getDaysNegociations()
+     .then(todaysNegotiation => {
+        for(let negociation of todaysNegotiation){
+          this.negotiations.addNegotiation(negociation);
+        }
+        this.negotiationsView.update(this.negotiations);
+     })
   }
 
   private itIsWorkingDay(date: Date): boolean{
@@ -57,13 +71,13 @@ export class NegotiationController{
   }
 
   private updateView(): void{
-    this.negociationsView.update(this.negociations);
+    this.negotiationsView.update(this.negotiations);
     this.messageView.update('Negociação adicionada com sucesso');
   }
 }
 
-
-  // //Existem 2 formas de fazer um casting explícito, conforme a baixo:
-  //   this.inputDate = <HTMLInputElement>document.querySelector('#data');
-  //   this.inputAmount = document.querySelector('#quantidade') as HTMLInputElement;
-  //   this.inputValue = document.querySelector('#valor') as HTMLInputElement;
+  /*
+    Existem 2 formas de fazer um casting explícito, conforme a baixo:
+      this.inputDate = <HTMLInputElement>document.querySelector('#data');
+      this.inputAmount = document.querySelector('#quantidade') as HTMLInputElement;
+  */
