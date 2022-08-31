@@ -13,6 +13,7 @@ import { Negotiations } from "../models/wrapperNegotiations.js";
 import { serviceNegotiations } from "../services/serviceNegotiations.js";
 import { MessageView } from "../views/messageView.js";
 import { NegotiationsView } from "../views/negotiationsView.js";
+import { print } from "../utils/print.js";
 export class NegotiationController {
     constructor() {
         this.negotiations = new Negotiations();
@@ -27,6 +28,7 @@ export class NegotiationController {
             return this.messageView.update('Apenas negociações em dias úteis são aceitas.');
         }
         this.negotiations.addNegotiation(negotiation);
+        print(negotiation, this.negotiations);
         this.updateView();
         this.cleanForm();
     }
