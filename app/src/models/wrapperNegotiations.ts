@@ -13,7 +13,7 @@ export class Negotiations implements Model<Negotiations>{
   }
 
   //ReadonlyArray<Negotiation>
-  list(): readonly Negotiation[]{
+  public list(): readonly Negotiation[]{
     return this.negotiations;
   }
 
