@@ -7,6 +7,7 @@ import { Negotiations } from "../models/wrapperNegotiations.js";
 import { serviceNegotiations } from "../services/serviceNegotiations.js";
 import { MessageView } from "../views/messageView.js";
 import { NegotiationsView } from "../views/negotiationsView.js";
+import { print } from "../utils/print.js";
 
 export class NegotiationController{
   //TS possui inerentemente a tipagem para lhe dar com JS. Ex: HTMLInputElement
@@ -43,6 +44,7 @@ export class NegotiationController{
     }
 
     this.negotiations.addNegotiation(negotiation);
+    print(negotiation, this.negotiations);
     this.updateView();
     this.cleanForm();
   }
