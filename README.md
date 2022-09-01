@@ -1,5 +1,9 @@
 # Formação Typescript
 
+<p align="center" width="100%">
+  <img src="https://i.imgur.com/m45j8ne.png" alt="Página de negociações" width="500">
+</p>
+
 ## Projeto - Negociações de ação :money_with_wings:
 
 Página para incluir e listar negociações de ações. O layout fornecido apresenta uma página estática html estilizada com bootstrap.css
